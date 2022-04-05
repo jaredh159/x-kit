@@ -13,8 +13,8 @@ Use SPM:
   .package(url: "https://github.com/jaredh159/x-kit.git", from: "1.0.0")
 // [...]
 // in "TARGETS"
-  .product(name: "XCore", package: "XKit"),
-  .product(name: "XBase64", package: "XKit"),
-  .product(name: "XVapor", package: "XKit"),
+  .product(name: "XCore", package: "x-kit"),
+  .product(name: "XBase64", package: "x-kit"),
+  .product(name: "XVapor", package: "x-kit"),
 // [...]
 ```
