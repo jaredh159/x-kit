@@ -12,8 +12,22 @@ let package = Package(
     .library(name: "XVapor", targets: ["XVapor"]),
   ],
   dependencies: [
-    .package(url: "https://github.com/vapor/vapor.git", from: "4.55.3"),
-    .package(url: "https://github.com/vapor/fluent-kit.git", from: "1.16.0"),
+    .package(
+      url: "https://github.com/vapor/vapor.git",
+      from: "4.55.3"
+    ),
+    .package(
+      url: "https://github.com/vapor/fluent-kit.git",
+      from: "1.16.0"
+    ),
+    .package(
+      url: "https://github.com/m-barthelemy/vapor-queues-fluent-driver.git",
+      from: "1.2.0"
+    ),
+    .package(
+      url: "https://github.com/alexsteinerde/graphql-kit.git",
+      from: "2.3.0"
+    ),
   ],
   targets: [
     .target(name: "XCore", dependencies: []),
