@@ -10,6 +10,7 @@ let package = Package(
     .library(name: "XCore", targets: ["XCore"]),
     .library(name: "XBase64", targets: ["XBase64"]),
     .library(name: "XVapor", targets: ["XVapor"]),
+    .library(name: "XGraphQLTest", targets: ["XGraphQLTest"]),
   ],
   dependencies: [
     .package(
@@ -35,6 +36,12 @@ let package = Package(
     .target(name: "XVapor", dependencies: [
       .product(name: "Vapor", package: "Vapor"),
       .product(name: "FluentSQL", package: "fluent-kit"),
+      .product(name: "QueuesFluentDriver", package: "vapor-queues-fluent-driver"),
+    ]),
+    .target(name: "XGraphQLTest", dependencies: [
+      .product(name: "Vapor", package: "Vapor"),
+      .product(name: "XCTVapor", package: "Vapor"),
+      .product(name: "GraphQLKit", package: "graphql-kit"),
     ]),
     .testTarget(name: "XCoreTests", dependencies: ["XCore"]),
   ]

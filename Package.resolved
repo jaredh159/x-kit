@@ -47,6 +47,33 @@
         }
       },
       {
+        "package": "Graphiti",
+        "repositoryURL": "https://github.com/GraphQLSwift/Graphiti.git",
+        "state": {
+          "branch": null,
+          "revision": "af903a243862c6427935677b91f67df0c21f2a71",
+          "version": "0.26.0"
+        }
+      },
+      {
+        "package": "GraphQL",
+        "repositoryURL": "https://github.com/GraphQLSwift/GraphQL.git",
+        "state": {
+          "branch": null,
+          "revision": "283cc4de56b994a00b2724328221b7a1bc846ddc",
+          "version": "2.2.1"
+        }
+      },
+      {
+        "package": "GraphQLKit",
+        "repositoryURL": "https://github.com/alexsteinerde/graphql-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "c0cc82e21c9a870c643bc338624b52cd98c3003d",
+          "version": "2.3.1"
+        }
+      },
+      {
         "package": "multipart-kit",
         "repositoryURL": "https://github.com/vapor/multipart-kit.git",
         "state": {
