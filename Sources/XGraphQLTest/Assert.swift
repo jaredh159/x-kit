@@ -31,6 +31,28 @@ public func assertGraphQLResponse(
   to operation: String,
   auth: Auth? = nil,
   addingHeaders headers: [HTTPHeaders.Name: String]? = nil,
+  withInput input: Map? = nil,
+  on application: Application,
+  _ expectedData: ExpectedData,
+  file: StaticString = #file,
+  line: UInt = #line
+) {
+  _assertGraphQLResponse(
+    to: operation,
+    auth: auth,
+    addingHeaders: headers,
+    withVariables: input.map { ["input": $0] },
+    matchesExpectation: .success(expectedData),
+    on: application,
+    file: file,
+    line: line
+  )
+}
+
+public func assertGraphQLResponse(
+  to operation: String,
+  auth: Auth? = nil,
+  addingHeaders headers: [HTTPHeaders.Name: String]? = nil,
   withVariables variables: [String: Map]? = nil,
   on application: Application,
   _ expectedData: ExpectedData,
@@ -43,6 +65,28 @@ public func assertGraphQLResponse(
     addingHeaders: headers,
     withVariables: variables,
     matchesExpectation: .success(expectedData),
+    on: application,
+    file: file,
+    line: line
+  )
+}
+
+public func assertGraphQLResponse(
+  to operation: String,
+  auth: Auth? = nil,
+  addingHeaders headers: [HTTPHeaders.Name: String]? = nil,
+  withInput input: Map? = nil,
+  on application: Application,
+  isError expectedError: ExpectedError,
+  file: StaticString = #file,
+  line: UInt = #line
+) {
+  _assertGraphQLResponse(
+    to: operation,
+    auth: auth,
+    addingHeaders: headers,
+    withVariables: input.map { ["input": $0] },
+    matchesExpectation: .error(expectedError),
     on: application,
     file: file,
     line: line
@@ -158,7 +202,8 @@ func _assertGraphQLResponse(
     case .error(let expectedError):
       switch expectedError {
       case .withStatus(let status):
-        XCTAssertContains(rawResponse, "\(status.code): \(status.reasonPhrase)")
+        XCTAssertContains(rawResponse, #""errors":[{"#)
+        XCTAssertContains(rawResponse, "\(status.code)")
       case .matching(let needle):
         XCTAssertContains(rawResponse, needle)
       }
