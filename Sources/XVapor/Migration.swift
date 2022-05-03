@@ -28,4 +28,19 @@ public extension Migration {
       _ = try await sql.raw("ALTER TYPE \(raw: enumName) ADD VALUE '\(raw: newCase)';").all()
     }
   }
+
+  func renameColumn(
+    in tableName: String,
+    from oldColumn: FieldKey,
+    to newColumn: FieldKey,
+    on database: Database
+  ) async throws {
+    let sql = database as! SQLDatabase
+    _ = try await sql.raw(
+      """
+      ALTER TABLE "\(raw: tableName)"
+      RENAME COLUMN "\(raw: oldColumn.description)" TO "\(raw: newColumn.description)";
+      """
+    ).all()
+  }
 }
