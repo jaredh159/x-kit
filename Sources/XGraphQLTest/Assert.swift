@@ -29,6 +29,7 @@ public enum Auth {
 
 public func assertGraphQLResponse(
   to operation: String,
+  path: String = "/graphql",
   auth: Auth? = nil,
   addingHeaders headers: [HTTPHeaders.Name: String]? = nil,
   withInput input: Map? = nil,
@@ -39,6 +40,7 @@ public func assertGraphQLResponse(
 ) {
   _assertGraphQLResponse(
     to: operation,
+    path: path,
     auth: auth,
     addingHeaders: headers,
     withVariables: input.map { ["input": $0] },
@@ -51,6 +53,7 @@ public func assertGraphQLResponse(
 
 public func assertGraphQLResponse(
   to operation: String,
+  path: String = "/graphql",
   auth: Auth? = nil,
   addingHeaders headers: [HTTPHeaders.Name: String]? = nil,
   withVariables variables: [String: Map]? = nil,
@@ -61,6 +64,7 @@ public func assertGraphQLResponse(
 ) {
   _assertGraphQLResponse(
     to: operation,
+    path: path,
     auth: auth,
     addingHeaders: headers,
     withVariables: variables,
@@ -73,6 +77,7 @@ public func assertGraphQLResponse(
 
 public func assertGraphQLResponse(
   to operation: String,
+  path: String = "/graphql",
   auth: Auth? = nil,
   addingHeaders headers: [HTTPHeaders.Name: String]? = nil,
   withInput input: Map? = nil,
@@ -83,6 +88,7 @@ public func assertGraphQLResponse(
 ) {
   _assertGraphQLResponse(
     to: operation,
+    path: path,
     auth: auth,
     addingHeaders: headers,
     withVariables: input.map { ["input": $0] },
@@ -95,6 +101,7 @@ public func assertGraphQLResponse(
 
 public func assertGraphQLResponse(
   to operation: String,
+  path: String = "/graphql",
   auth: Auth? = nil,
   addingHeaders headers: [HTTPHeaders.Name: String]? = nil,
   withVariables variables: [String: Map]? = nil,
@@ -105,6 +112,7 @@ public func assertGraphQLResponse(
 ) {
   _assertGraphQLResponse(
     to: operation,
+    path: path,
     auth: auth,
     addingHeaders: headers,
     withVariables: variables,
@@ -117,6 +125,7 @@ public func assertGraphQLResponse(
 
 func _assertGraphQLResponse(
   to operation: String,
+  path: String = "/graphql",
   auth: Auth? = nil,
   addingHeaders headers: [HTTPHeaders.Name: String]? = nil,
   withVariables variables: [String: Map]? = nil,
@@ -148,7 +157,7 @@ func _assertGraphQLResponse(
     break
   }
 
-  try! app.testable().test(.POST, "/graphql", headers: reqHeaders, body: body) {
+  try! app.testable().test(.POST, path, headers: reqHeaders, body: body) {
     var res = $0
     let rawResponse = res.body.readString(length: res.body.readableBytes)
 
