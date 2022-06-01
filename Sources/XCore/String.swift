@@ -10,12 +10,27 @@ public extension String {
     snakeCased.uppercased()
   }
 
-  func padLeft(toLength: Int, withPad: String) -> String {
+  func padLeft(toLength length: Int, withPad pad: Character) -> String {
     String(
       String(reversed())
-        .padding(toLength: toLength, withPad: withPad, startingAt: 0)
+        .padding(toLength: length, withPad: "\(pad)", startingAt: 0)
         .reversed()
     )
+  }
+
+  func regexReplace<Pattern: StringProtocol, Replacement: StringProtocol>(
+    _ pattern: Pattern,
+    _ replacement: Replacement
+  ) -> String {
+    replacingOccurrences(of: pattern, with: replacement, options: .regularExpression)
+  }
+
+  func regexRemove<Pattern: StringProtocol>(_ pattern: Pattern) -> String {
+    regexReplace(pattern, "")
+  }
+
+  func matchesRegex<Pattern: StringProtocol>(_ pattern: Pattern) -> Bool {
+    range(of: pattern, options: .regularExpression) != nil
   }
 
   private func processCamelCaseRegex(pattern: String) -> String? {
