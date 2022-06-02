@@ -11,21 +11,23 @@ public extension Migration {
     enumName: String,
     newCases: [String]
   ) async throws {
-    let sql = db as! SQLDatabase
+    if #available(macOS 12, *) {
+      let sql = db as! SQLDatabase
 
-    for newCase in newCases {
-      if !completingPriorMigration {
-        _ = try await sql.raw(
-          """
-          INSERT INTO "_fluent_enums"
-          ("id", "name", "case")
-          VALUES
-          ('\(raw: UUID().uuidString.lowercased())', '\(raw: enumName)', '\(raw: newCase)');
-          """
-        ).all()
+      for newCase in newCases {
+        if !completingPriorMigration {
+          _ = try await sql.raw(
+            """
+            INSERT INTO "_fluent_enums"
+            ("id", "name", "case")
+            VALUES
+            ('\(raw: UUID().uuidString.lowercased())', '\(raw: enumName)', '\(raw: newCase)');
+            """
+          ).all()
+        }
+
+        _ = try await sql.raw("ALTER TYPE \(raw: enumName) ADD VALUE '\(raw: newCase)';").all()
       }
-
-      _ = try await sql.raw("ALTER TYPE \(raw: enumName) ADD VALUE '\(raw: newCase)';").all()
     }
   }
 
@@ -35,12 +37,14 @@ public extension Migration {
     to newColumn: FieldKey,
     on database: Database
   ) async throws {
-    let sql = database as! SQLDatabase
-    _ = try await sql.raw(
-      """
-      ALTER TABLE "\(raw: tableName)"
-      RENAME COLUMN "\(raw: oldColumn.description)" TO "\(raw: newColumn.description)";
-      """
-    ).all()
+    if #available(macOS 12, *) {
+      let sql = database as! SQLDatabase
+      _ = try await sql.raw(
+        """
+        ALTER TABLE "\(raw: tableName)"
+        RENAME COLUMN "\(raw: oldColumn.description)" TO "\(raw: newColumn.description)";
+        """
+      ).all()
+    }
   }
 }

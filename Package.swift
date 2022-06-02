@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
   name: "XKit",
-  platforms: [.macOS(.v12)],
+  platforms: [.macOS(.v11)],
   products: [
     .library(name: "XCore", targets: ["XCore"]),
     .library(name: "XBase64", targets: ["XBase64"]),
