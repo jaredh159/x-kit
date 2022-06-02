@@ -20,7 +20,13 @@ public struct BackupJob: AsyncScheduledJob {
   }
 
   public func run(context: QueueContext) async throws {
-    try await handler(backupFileData)
+    if #available(macOS 12, *) {
+      try await handler(backupFileData)
+    }
+  }
+
+  public func run(context: QueueContext) -> EventLoopFuture<Void> {
+    fatalError("BackupJob legacy run fn called")
   }
 
   private var backupFileData: Data {
