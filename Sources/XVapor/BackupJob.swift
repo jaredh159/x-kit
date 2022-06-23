@@ -26,7 +26,9 @@ public struct BackupJob: AsyncScheduledJob {
   }
 
   public func run(context: QueueContext) -> EventLoopFuture<Void> {
-    fatalError("BackupJob legacy run fn called")
+    let promise = context.eventLoop.makePromise(of: Void.self)
+    promise.completeWithTask { try await run(context: context) }
+    return promise.futureResult
   }
 
   private var backupFileData: Data {
