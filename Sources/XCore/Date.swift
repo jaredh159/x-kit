@@ -39,7 +39,7 @@ public extension Date {
 private var cachedFormatter: ISO8601DateFormatter?
 
 private func isoFormatter() -> ISO8601DateFormatter {
-  cachedFormatter ?? createFormatter()
+  return threadSharedObject(key: "com.x-kit.jaredh159.isoFormatter", create: createFormatter)
 }
 
 private func createFormatter() -> ISO8601DateFormatter {
