@@ -36,8 +36,6 @@ public extension Date {
 
 // helpers
 
-private var cachedFormatter: ISO8601DateFormatter?
-
 private func isoFormatter() -> ISO8601DateFormatter {
   return threadSharedObject(key: "com.x-kit.jaredh159.isoFormatter", create: createFormatter)
 }
@@ -51,6 +49,5 @@ private func createFormatter() -> ISO8601DateFormatter {
     .withColonSeparatorInTime,
     .withFractionalSeconds,
   ]
-  cachedFormatter = formatter
   return formatter
 }
